@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PacienteController extends Controller
 {
+
+    public function exportPdf()
+    {
+        $pacientes = Paciente::all();
+        $pdf = Pdf::loadView('pacientes.pdf', compact('pacientes'));
+        return $pdf->download('pacientes.pdf');
+    }
+    
+    
     public function index()
     {
         $pacientes = Paciente::all();
