@@ -1,11 +1,10 @@
 <h1>Pacientes Cadastrados</h1>
 
-<a href="{{ route('pacientes.export.pdf') }}">Exportar PDF</a>
-
 @if(session('success'))
     <p style="color:green">{{ session('success') }}</p>
 @endif
 
+<a href="{{ route('pacientes.export.pdf') }}">Exportar PDF</a>
 <a href="{{ route('pacientes.create') }}">Novo Paciente</a>
 
 <table border="1" cellpadding="5">
