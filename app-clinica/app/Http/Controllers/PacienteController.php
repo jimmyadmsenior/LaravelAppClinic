@@ -137,7 +137,27 @@ class PacienteController extends Controller
         ]);
 
         if ($response->successful()) {
-            return back()->with('success', 'Dados enviados com sucesso!');
+            public function importFromApi()
+            {
+                $response = Http::get('https://url-da-api.com/dados-pacientes');
+
+                if ($response->successful()) {
+                    $pacientes = $response->json();
+
+                    foreach ($pacientes as $dados) {
+                        Paciente::create([
+                            'nome' => $dados['nome'],
+                            'cpf' => $dados['cpf'],
+                            'email' => $dados['email'],
+                            'idade' => $dados['idade'],
+                        ]);
+                    }
+
+                    return back()->with('success', 'Pacientes importados com sucesso!');
+                }
+
+                return back()->with('error', 'Erro ao importar dados da API.');
+            }
         }
 
         return back()->with('error', 'Erro ao enviar dados para API.');

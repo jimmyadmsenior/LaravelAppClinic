@@ -11,3 +11,5 @@ Route::get('/pacientes/export/csv', [PacienteController::class, 'exportCsv'])->n
 Route::get('/pacientes/json', [PacienteController::class, 'exportJson'])->name('pacientes.export.json');
 
 Route::post('/pacientes/send-api', [PacienteController::class, 'sendToApi'])->name('pacientes.send.api');
+
+Route::get('/pacientes/importar-api', [PacienteController::class, 'importFromApi'])->name('pacientes.import.api');
