@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\PacientesExport;
+use Illuminate\Support\Facades\Http;
 
 class PacienteController extends Controller
 {
@@ -39,6 +40,12 @@ class PacienteController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportJson()
+    {
+        $pacientes = Paciente::all();
+        return response()->json($pacientes);
     }
     
     public function index()
@@ -112,5 +119,20 @@ class PacienteController extends Controller
         }
         $paciente->delete();
         return redirect()->route('pacientes.index')->with('success', 'Paciente excluído!');
+    }
+
+    public function sendToApi()
+    {
+        $pacientes = Paciente::all();
+
+        $response = Http::post('https://exemplo-api.com/receber-dados', [
+            'pacientes' => $pacientes,
+        ]);
+
+        if ($response->successful()) {
+            return back()->with('success', 'Dados enviados com sucesso!');
+        }
+
+        return back()->with('error', 'Erro ao enviar dados para API.');
     }
 }

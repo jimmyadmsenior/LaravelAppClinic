@@ -1,11 +1,21 @@
 <h1>Pacientes Cadastrados</h1>
 
 @if(session('success'))
-    <p style="color:green">{{ session('success') }}</p>
+    <div style="color: green;">{{ session('success') }}</div>
+@endif
+
+@if(session('error'))
+    <div style="color: red;">{{ session('error') }}</div>
 @endif
 
 <a href="{{ route('pacientes.export.pdf') }}">Exportar PDF</a>
+<a href="{{ route('pacientes.export.csv') }}">Exportar CSV</a>
 <a href="{{ route('pacientes.create') }}">Novo Paciente</a>
+
+<form action="{{ route('pacientes.send.api') }}" method="POST" style="display:inline">
+    @csrf
+    <button type="submit">Enviar dados para API</button>
+</form>
 
 <table border="1" cellpadding="5">
     <tr>
