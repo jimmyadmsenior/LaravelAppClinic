@@ -125,7 +125,7 @@ class PacienteController extends Controller
     {
         $pacientes = Paciente::all();
 
-        $response = Http::post('https://exemplo-api.com/receber-dados', [
+        $response = Http::post('http://127.0.0.1:8001/api/receber-dados', [
             'pacientes' => $pacientes->map(function($p) {
                 return [
                     'nome_completo' => $p->nome,
