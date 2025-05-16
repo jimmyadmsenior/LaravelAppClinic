@@ -135,7 +135,7 @@ class PacienteController extends Controller
                 ];
             }),
         ]);
-
+        
         if ($response->successful()) {
             return back()->with('success', 'Dados enviados para API com sucesso!');
         }
